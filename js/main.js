@@ -17,7 +17,7 @@ const repositories=[
 	},
 	{
 		name:'xbiquge6',
-		details:`<p>用于下载xbiquge6.com的小说</p><p><a href="https://raw.githubusercontent.com/yyhhenry/xbiquge6/master/main.user.js" rel="nofollow">下载脚本</a></p>`
+		details:`<p>用于下载xbiquge6.com的小说</p><p><a href="https://yyhhenry.github.io/xbiquge6/main.user.js" rel="nofollow">下载脚本</a></p>`
 	},
 	{
 		name:'Java-3D-Engine',
