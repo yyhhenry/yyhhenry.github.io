@@ -163,7 +163,10 @@ $(function(){
 		ctx.shadowColor=clearColor;
 		ctx.shadowBlur=0;
 		ctx.fillRect(0,0,clientWidth,clientHeight);
+		ctx.fillStyle='rgba(255,255,255,1)';
 		mouse.move(deltaPaintTime);
+		ctx.fillRect(mouse.x,mouse.y-7,1,14);
+		ctx.fillRect(mouse.x-7,mouse.y,14,1);
 		for(let i=0;i<particles.length;i++){
 			particles[i].draw(deltaPaintTime);
 		}
