@@ -11,14 +11,14 @@ $(function(){
 	}
 	onresize();
 	let ctx = canvas.getContext('2d');
-	let maxParticles = 16;
+	let maxParticles = 24;
 	let particles = [];
 	let hue = 183;
 	let mouse = {};
 	mouse.size = 200;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
-	let clearColor='rgba(0,0,0,0.05)';
+	let clearColor='rgba(0,0,0,0.025)';
 	function random(min,max){
 		return Math.random()*(max-min)+min;
 	}
