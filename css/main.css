@@ -24,9 +24,9 @@ a:active {text-decoration:underline;}
 ::-webkit-scrollbar-thumb{  
 	border-radius: 10px; 
 	background-color: gray;
-}  
+}
 
 ::-webkit-scrollbar-thumb:hover{  
 	border-radius: 10px; 
 	background-color: #eeeeee;
-}  
+}
