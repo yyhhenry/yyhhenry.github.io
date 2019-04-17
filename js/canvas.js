@@ -11,14 +11,14 @@ $(function(){
 	}
 	onresize();
 	let ctx = canvas.getContext('2d');
-	let maxParticles = 45;
+	let maxParticles = 16;
 	let particles = [];
 	let hue = 183;
 	let mouse = {};
-	mouse.size = 300;
+	mouse.size = 200;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
-	let clearColor='rgba(0,0,0,0.2)';
+	let clearColor='rgba(0,0,0,0.05)';
 	function random(min,max){
 		return Math.random()*(max-min)+min;
 	}
@@ -27,7 +27,10 @@ $(function(){
 	}
 	function Particle(){
 		this.init=function(){
-			this.size=this.origSize=random(10,100);
+			this.lines=Math.round(random(5,8));
+			this.angle=random(0,360);
+			this.angleSpeed=random(-2,2)/1000;
+			this.size=this.origSize=random(20,150);
 			if(Math.random()*(clientHeight+clientWidth)<clientHeight){
 				this.x=Math.random()<0.5?-this.size:clientWidth+this.size;
 				this.y=random(0,clientHeight);
@@ -35,7 +38,6 @@ $(function(){
 				this.x=random(0,clientWidth);
 				this.y=Math.random()<0.5?-this.size:clientHeight+this.size;
 			}
-			this.speed=random(0.0001,0.0003);
 		}
 		this.init();
 		this.draw=function(deltaPaintTime){
@@ -44,10 +46,11 @@ $(function(){
 			ctx.shadowColor=`hsla(${Math.round(hue)},100%,55%,1)`;
 			ctx.shadowBlur=this.size*2;
 			ctx.beginPath();
-			ctx.moveTo(this.x+this.size*Math.cos(0),this.y+this.size*Math.sin(0));
-			const angle=Math.PI/3;
-			for(let i=0;i<6;i++){
-				ctx.lineTo(this.x+this.size*Math.cos(i*angle),this.y+this.size*Math.sin(i*angle));
+			this.angle+=this.angleSpeed*deltaPaintTime;
+			ctx.moveTo(this.x+this.size*Math.cos(this.angle),this.y+this.size*Math.sin(this.angle));
+			const angle=2*Math.PI/this.lines;
+			for(let i=0;i<this.lines;i++){
+				ctx.lineTo(this.x+this.size*Math.cos(this.angle+i*angle),this.y+this.size*Math.sin(this.angle+i*angle));
 			}
 			ctx.closePath();
 			ctx.lineWidth=3;
