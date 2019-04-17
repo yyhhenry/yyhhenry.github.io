@@ -11,11 +11,11 @@ $(function(){
 	}
 	onresize();
 	let ctx = canvas.getContext('2d');
-	let maxParticles = 30;
+	let maxParticles = 45;
 	let particles = [];
 	let hue = 183;
 	let mouse = {};
-	mouse.size = 200;
+	mouse.size = 300;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
 	let clearColor='rgba(0,0,0,0.2)';
@@ -58,7 +58,6 @@ $(function(){
 				this.y+=(mouse.y-this.y)*this.speed*deltaPaintTime;
 				if(distanceFromMouse<mouse.size){
 					this.size-=this.size*this.speed*deltaPaintTime;
-					this.speed+=0.0001*deltaPaintTime;
 				}else{
 					this.size+=(this.origSize-this.size)*this.speed*deltaPaintTime;
 				}
