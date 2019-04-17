@@ -1,5 +1,17 @@
 $(function(){
 	window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+	function putmsg(text){
+		let msgboxs=document.getElementById('msgboxs');
+		let msgbox=document.createElement('div');
+		msgboxs.append(msgbox);
+		$(msgbox).addClass('noselect');
+		$(msgbox).addClass('msgbox');
+		$(msgbox).text(text);
+		$(msgbox).slideDown();
+		$(msgbox).click(function(){
+			$(msgbox).slideUp();
+		});
+	}
 	let canvas=document.getElementById('canvas');
 	let clientWidth;
 	let clientHeight;
@@ -13,8 +25,11 @@ $(function(){
 	let ctx = canvas.getContext('2d');
 	let maxParticles = 24;
 	let particles = [];
-	let hue = 183;
 	let mouse = {};
+	let 成就={
+		魔法阵:false,
+		探索者:false
+	};
 	mouse.size = 200;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
@@ -30,7 +45,10 @@ $(function(){
 			this.lines=Math.round(random(5,8));
 			this.angle=random(0,360);
 			this.angleSpeed=random(-2,2)/1000;
-			this.size=this.origSize=random(20,150);
+			this.hue=random(0,360);
+			this.hueSpeed=random(-50,50)/1000;
+			this.size=this.maxSize=random(15,150);
+			this.baseSpeed=random(0.5,1.5);
 			if(Math.random()*(clientHeight+clientWidth)<clientHeight){
 				this.x=Math.random()<0.5?-this.size:clientWidth+this.size;
 				this.y=random(0,clientHeight);
@@ -40,13 +58,22 @@ $(function(){
 			}
 		}
 		this.init();
+		this.魔法阵成立=function(){
+			for(let i=0;i<particles.length;i++){
+				if(distance(this.x,this.y,particles[i].x,particles[i].y)>2){
+					return false;
+				}
+			}
+			return (this.size>this.maxSize/3*2);
+		}
 		this.draw=function(deltaPaintTime){
 			const distanceFromMouse=distance(this.x,this.y,mouse.x,mouse.y);
-			ctx.strokeStyle=`hsla(${Math.round(hue)},90%,50%,0.5)`;
-			ctx.shadowColor=`hsla(${Math.round(hue)},100%,55%,0.5)`;
+			ctx.strokeStyle=`hsla(${Math.round(this.hue)},90%,50%,0.5)`;
+			ctx.shadowColor=`hsla(${Math.round(this.hue)},100%,55%,0.5)`;
 			ctx.shadowBlur=this.size*2;
 			ctx.beginPath();
 			this.angle+=this.angleSpeed*deltaPaintTime;
+			this.hue+=this.hueSpeed*deltaPaintTime;
 			ctx.moveTo(this.x+this.size*Math.cos(this.angle),this.y+this.size*Math.sin(this.angle));
 			const angle=2*Math.PI/this.lines;
 			for(let i=0;i<this.lines;i++){
@@ -55,14 +82,20 @@ $(function(){
 			ctx.closePath();
 			ctx.lineWidth=3;
 			ctx.stroke();
-			if(distanceFromMouse>20){
+			if(distanceFromMouse>20||成就.魔法阵){
 				this.speed=0.1/distanceFromMouse;
+				if(成就.魔法阵){
+					this.speed*=this.baseSpeed;
+					if(Math.abs(this.x-mouse.x)<1&&Math.abs(this.y-mouse.y)<1){
+						this.baseSpeed=random(0.5,1.5);
+					}
+				}
 				this.x+=(mouse.x-this.x)*this.speed*deltaPaintTime;
 				this.y+=(mouse.y-this.y)*this.speed*deltaPaintTime;
-				if(distanceFromMouse<mouse.size){
+				if(distanceFromMouse<mouse.size&&!成就.魔法阵){
 					this.size-=this.size*this.speed*deltaPaintTime;
 				}else{
-					this.size+=(this.origSize-this.size)*this.speed*deltaPaintTime;
+					this.size+=(this.maxSize-this.size)*this.speed*deltaPaintTime;
 				}
 			}else{
 				this.init();
@@ -89,13 +122,28 @@ $(function(){
 	window.addEventListener("touchmove", mouse.touches);
 	window.addEventListener("resize", onresize);
 	for(let i=0;i<maxParticles;i++){
-		setTimeout(function(){
-			particles.push(new Particle());
-		}, i * 50);
+		particles.push(new Particle());
 	}
+	$(window).dblclick(function(){
+		if(!成就.探索者){
+			成就.探索者=true;
+			putmsg('达成成就\"探索者\"');
+		}
+		$('#proScr').slideToggle();
+	});
+	let stopPaint=false;
+	document.addEventListener('visibilitychange',function(){
+		if(document.visibilityState=='hidden') {
+			stopPaint=true;
+		}
+	});
 	let lastPaintTime=new Date().getTime();
 	function anim(){
 		const thisPaintTime=new Date().getTime();
+		if(stopPaint){
+			lastPaintTime=thisPaintTime;
+			stopPaint=false;
+		}
 		const deltaPaintTime=thisPaintTime-lastPaintTime;
 		ctx.fillStyle=clearColor;
 		ctx.shadowColor=clearColor;
@@ -105,7 +153,18 @@ $(function(){
 		for(let i=0;i<particles.length;i++){
 			particles[i].draw(deltaPaintTime);
 		}
-		hue+=deltaPaintTime/30;
+		if(!成就.魔法阵){
+			let tot=true;
+			for(let i=0;i<particles.length;i++){
+				if(!particles[i].魔法阵成立()){
+					tot=false;
+				}
+			}
+			if(tot){
+				成就.魔法阵=true;
+				putmsg('达成成就\"魔法阵\"');
+			}
+		}
 		requestAnimationFrame(anim);
 		lastPaintTime=thisPaintTime;
 	}

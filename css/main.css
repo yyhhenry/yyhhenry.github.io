@@ -11,7 +11,15 @@ a:active {text-decoration:underline;}
 	-ms-user-select: none;
 	user-select: none;
 }
-
+.msgbox{
+	color:rgba(220,220,220,1);
+	background:rgba(0,0,0,0.6);
+	padding:10px;
+	border:1px solid white;
+	float:top;
+	display:none;
+	font-size:1.5em;
+}
 ::-webkit-scrollbar{  
 	width: 10px; 
 }
