@@ -40,11 +40,15 @@ function setRepositories(){
 		let option=document.createElement('h3');
 		option.innerText=repositories[i].name;
 		$(option).mouseenter(function(){
-			$(option).css('background','rgba(128,0,0,0.7)');
+			$(option).css('background','rgb(80,0,0)');
+			$(option).css('color','rgba(255,255,255,0.7)');
+			$(option).css('filter','brightness(1.5)');
 			$(details).html(`<h1><a href='https://github.com/yyhhenry/${repositories[i].name}'>${repositories[i].name}</a></h1><hr>`+repositories[i].details);
 		});
 		$(option).mouseleave(function(){
 			$(option).css('background','rgba(0,0,0,0)');
+			$(option).css('color','rgba(220,220,220,1)');
+			$(option).css('filter','brightness(1)');
 		});
 		list.appendChild(option);
 	}
