@@ -42,8 +42,8 @@ $(function(){
 		this.init();
 		this.draw=function(deltaPaintTime){
 			const distanceFromMouse=distance(this.x,this.y,mouse.x,mouse.y);
-			ctx.strokeStyle=`hsla(${Math.round(hue)},90%,50%,1)`;
-			ctx.shadowColor=`hsla(${Math.round(hue)},100%,55%,1)`;
+			ctx.strokeStyle=`hsla(${Math.round(hue)},90%,50%,0.5)`;
+			ctx.shadowColor=`hsla(${Math.round(hue)},100%,55%,0.5)`;
 			ctx.shadowBlur=this.size*2;
 			ctx.beginPath();
 			this.angle+=this.angleSpeed*deltaPaintTime;
