@@ -1,5 +1,11 @@
 $(function(){
 	window.requestAnimationFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame;
+	let 成就={
+		探索者:false,
+		魔法阵:false,
+		强迫症:false,
+		暗杀者:false
+	};
 	function putmsg(text){
 		let msgboxs=document.getElementById('msgboxs');
 		let msgbox=document.createElement('div');
@@ -10,6 +16,10 @@ $(function(){
 		$(msgbox).slideDown();
 		$(msgbox).click(function(){
 			$(msgbox).slideUp();
+			if(!成就.强迫症){
+				成就.强迫症=true;
+				putmsg('达成成就\"强迫症\"');
+			}
 		});
 	}
 	let canvas=document.getElementById('canvas');
@@ -26,10 +36,6 @@ $(function(){
 	let maxParticles = 24;
 	let particles = [];
 	let mouse = {};
-	let 成就={
-		魔法阵:false,
-		探索者:false
-	};
 	mouse.size = 200;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
@@ -40,6 +46,7 @@ $(function(){
 	function distance(x1,y1,x2,y2){
 		return Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
 	}
+	let 刺杀=0;
 	function Particle(){
 		this.init=function(){
 			this.lines=Math.round(random(5,8));
@@ -82,7 +89,7 @@ $(function(){
 			ctx.closePath();
 			ctx.lineWidth=3;
 			ctx.stroke();
-			if(distanceFromMouse>20||成就.魔法阵){
+			if(distanceFromMouse>15||成就.魔法阵){
 				this.speed=0.1/distanceFromMouse;
 				if(成就.魔法阵){
 					this.speed*=this.baseSpeed;
@@ -98,6 +105,13 @@ $(function(){
 					this.size+=(this.maxSize-this.size)*this.speed*deltaPaintTime;
 				}
 			}else{
+				if(this.size>this.maxSize/2){
+					刺杀++;
+					if(刺杀>10&&!成就.暗杀者){
+						成就.暗杀者=true;
+						putmsg('达成成就\"暗杀者\"');
+					}
+				}
 				this.init();
 			}
 		}
@@ -163,6 +177,7 @@ $(function(){
 			if(tot){
 				成就.魔法阵=true;
 				putmsg('达成成就\"魔法阵\"');
+				putmsg('进入不灭模式');
 			}
 		}
 		requestAnimationFrame(anim);
