@@ -57,23 +57,20 @@ function setRepositories(){
 	$(list).html('');
 	for(let i=0;i<repositories.length;i++){
 		let option=document.createElement('h3');
-		option.innerText=repositories[i].name;
-		repositories[i].mouseentered=false;
-		repositories[i].mouseenter=function(){
-			repositories[i].mouseentered=true;
+		list.appendChild(option);
+		$(option).text(repositories[i].name);
+		$(option).mouseenter(function(){
 			$(option).css('background','rgba(80,0,0,0.6)');
 			$(option).css('color','rgba(255,255,255,0.7)');
 			$(option).css('filter','brightness(1.5)');
 			$(details).html(`<h1><a href='https://github.com/yyhhenry/${repositories[i].name}'>${repositories[i].name}</a></h1><hr>`+repositories[i].details);
-		};
-		repositories[i].option=option;
-		repositories[i].mouseleave=function(){
+		});
+		$(option).mouseleave(function(){
 			repositories[i].mouseentered=false;
 			$(option).css('background','rgba(0,0,0,0)');
 			$(option).css('color','rgba(220,220,220,1)');
 			$(option).css('filter','brightness(1)');
-		};
-		list.appendChild(option);
+		});
 	}
 }
 function onresize(){

@@ -144,6 +144,11 @@ $(function(){
 			成就.探索者=true;
 			putmsg('达成成就\"探索者\"');
 		}
+		if($('#proScr').css('display')=='none'){
+			$('body').css('cursor','auto');
+		}else{
+			$('body').css('cursor','none');
+		}
 		$('#proScr').slideToggle();
 	});
 	let stopPaint=false;
@@ -168,20 +173,6 @@ $(function(){
 		mouse.move(deltaPaintTime);
 		ctx.fillRect(mouse.x,mouse.y-10,1,20);
 		ctx.fillRect(mouse.x-10,mouse.y,20,1);
-		if($('#proScr').css('display')!='none'){
-			for(let i=0;i<repositories.length;i++){
-				const option=repositories[i].option;
-				const offleft=getElementLeft(option);
-				const offtop=getElementTop(option);
-				const offright=offleft+$(option).width();
-				const offbottom=offtop+$(option).height();
-				if(mouse.x>=offleft&&mouse.x<=offright&&mouse.y>=offtop&&mouse.y<=offbottom){
-					repositories[i].mouseenter();
-				}else if(repositories[i].mouseentered){
-					repositories[i].mouseleave();
-				}
-			}
-		}
 		for(let i=0;i<particles.length;i++){
 			particles[i].draw(deltaPaintTime);
 		}
