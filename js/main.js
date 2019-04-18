@@ -1,4 +1,5 @@
-const repositories=[
+let mouse;
+let repositories=[
 	{
 		name:'manketuan',
 		details:`<p>Chrome浏览器插件</p><p>默认所有图片会被替换成'Loading'，只能通过审查元素查看链接信息</p><p>如果想要正常使用，请在选项页中关闭调试模式</p><p>注意：每次重启浏览器都会导致调试模式被默认打开</p><p>如果显示区域发生重叠，可能是您的浏览器不支持太宽的弹出页面，请尝试把选项页中的width改小一些</p><p><a href="https://yyhhenry.github.io/manketuan" rel="nofollow">手机版测试</a>`
@@ -32,6 +33,24 @@ const repositories=[
 		details:`<p>An Educational Programming Language</p>`
 	}
 ];
+function getElementLeft(element){
+	let actualLeft = element.offsetLeft;
+	let current = element.offsetParent;
+	while(current!=null){
+		actualLeft += current.offsetLeft;
+		current = current.offsetParent;
+	}
+	return actualLeft;
+}
+function getElementTop(element){
+	let actualLeft = element.offsetTop;
+	let current = element.offsetParent;
+	while(current!=null){
+		actualLeft += current.offsetTop;
+		current = current.offsetParent;
+	}
+	return actualLeft;
+}
 function setRepositories(){
 	const list=document.getElementById('list');
 	const details=document.getElementById('details');
@@ -39,17 +58,21 @@ function setRepositories(){
 	for(let i=0;i<repositories.length;i++){
 		let option=document.createElement('h3');
 		option.innerText=repositories[i].name;
-		$(option).mouseenter(function(){
-			$(option).css('background','rgb(80,0,0)');
+		repositories[i].mouseentered=false;
+		repositories[i].mouseenter=function(){
+			repositories[i].mouseentered=true;
+			$(option).css('background','rgba(80,0,0,0.6)');
 			$(option).css('color','rgba(255,255,255,0.7)');
 			$(option).css('filter','brightness(1.5)');
 			$(details).html(`<h1><a href='https://github.com/yyhhenry/${repositories[i].name}'>${repositories[i].name}</a></h1><hr>`+repositories[i].details);
-		});
-		$(option).mouseleave(function(){
+		};
+		repositories[i].option=option;
+		repositories[i].mouseleave=function(){
+			repositories[i].mouseentered=false;
 			$(option).css('background','rgba(0,0,0,0)');
 			$(option).css('color','rgba(220,220,220,1)');
 			$(option).css('filter','brightness(1)');
-		});
+		};
 		list.appendChild(option);
 	}
 }

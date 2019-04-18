@@ -35,7 +35,7 @@ $(function(){
 	let ctx = canvas.getContext('2d');
 	let maxParticles = 24;
 	let particles = [];
-	let mouse = {};
+	mouse = {};
 	mouse.size = 200;
 	mouse.x = mouse.tx = clientWidth/2;
 	mouse.y = mouse.ty = clientHeight/2;
@@ -101,6 +101,7 @@ $(function(){
 				this.y+=(mouse.y-this.y)*this.speed*deltaPaintTime;
 				if(distanceFromMouse<mouse.size&&!成就.魔法阵){
 					this.size-=this.size*this.speed*deltaPaintTime;
+					if(this.size<2)this.size=2;
 				}else{
 					this.size+=(this.maxSize-this.size)*this.speed*deltaPaintTime;
 				}
@@ -165,8 +166,22 @@ $(function(){
 		ctx.fillRect(0,0,clientWidth,clientHeight);
 		ctx.fillStyle='rgba(255,255,255,1)';
 		mouse.move(deltaPaintTime);
-		ctx.fillRect(mouse.x,mouse.y-7,1,14);
-		ctx.fillRect(mouse.x-7,mouse.y,14,1);
+		ctx.fillRect(mouse.x,mouse.y-10,1,20);
+		ctx.fillRect(mouse.x-10,mouse.y,20,1);
+		if($('#proScr').css('display')!='none'){
+			for(let i=0;i<repositories.length;i++){
+				const option=repositories[i].option;
+				const offleft=getElementLeft(option);
+				const offtop=getElementTop(option);
+				const offright=offleft+$(option).width();
+				const offbottom=offtop+$(option).height();
+				if(mouse.x>=offleft&&mouse.x<=offright&&mouse.y>=offtop&&mouse.y<=offbottom){
+					repositories[i].mouseenter();
+				}else if(repositories[i].mouseentered){
+					repositories[i].mouseleave();
+				}
+			}
+		}
 		for(let i=0;i<particles.length;i++){
 			particles[i].draw(deltaPaintTime);
 		}
