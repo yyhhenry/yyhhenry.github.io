@@ -6,7 +6,7 @@ let repositories=[
 	},
 	{
 		name:'yyhhenry.github.io',
-		details:`<p>我的博客</p>`
+		details:`<a href='https://yyhhenry.github.io'>我的博客</a>`
 	},
 	{
 		name:'trick',
