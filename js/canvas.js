@@ -144,11 +144,6 @@ $(function(){
 			成就.探索者=true;
 			putmsg('达成成就\"探索者\"');
 		}
-		if($('#proScr').css('display')=='none'){
-			$('body').css('cursor','auto');
-		}else{
-			$('body').css('cursor','none');
-		}
 		$('#proScr').slideToggle();
 	});
 	let stopPaint=false;
