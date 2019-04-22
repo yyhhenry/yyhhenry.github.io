@@ -33,8 +33,8 @@ let repositories=[
 		details:`<p>An Educational Programming Language</p>`
 	},
 	{
-		name:'Redstone',
-		details:`<p><a href="https://yyhhenry.github.io/Redstone" rel="nofollow">随便玩电路</a></p>`
+		name:'redstone',
+		details:`<p><a href="https://yyhhenry.github.io/redstone" rel="nofollow">随便玩电路</a></p>`
 	}
 ];
 function getElementLeft(element){
