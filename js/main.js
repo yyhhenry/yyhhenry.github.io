@@ -6,7 +6,7 @@ let repositories=[
 	},
 	{
 		name:'yyhhenry.github.io',
-		details:`<a href='https://yyhhenry.github.io'>我的博客</a>`
+		details:`<p><a href='https://yyhhenry.github.io'>我的博客</a></p>`
 	},
 	{
 		name:'trick',
@@ -31,6 +31,10 @@ let repositories=[
 	{
 		name:'Cpx',
 		details:`<p>An Educational Programming Language</p>`
+	},
+	{
+		name:'Redstone',
+		details:`<p><a href="https://yyhhenry.github.io/Redstone" rel="nofollow">随便玩电路</a></p>`
 	}
 ];
 function getElementLeft(element){
