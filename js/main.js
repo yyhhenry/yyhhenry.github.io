@@ -80,6 +80,14 @@ let repositories=[
 	没有选中任何节点的时候，Ctrl+X或Ctrl+C无效
 	
 </code></pre>`
+	},
+	{
+		name:'gomoku',
+		details:`<h1>gomoku</h1>
+<p>一个取材自@wky32768 的项目，当然主要也是因为他@我太多了。</p>
+<p>使用方法过于简单，不再赘述。</p>
+<p>初步加入随机，AI请等下次</p>
+<p><a href="https://yyhhenry.github.io/gomoku" rel="nofollow">在线试玩</a></p>`
 	}
 ];
 function getElementLeft(element){
