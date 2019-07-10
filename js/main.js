@@ -1,10 +1,6 @@
 let mouse;
 let repositories=[
 	{
-		name:'manketuan',
-		details:`<p>Chrome浏览器插件</p><p>默认所有图片会被替换成'Loading'，只能通过审查元素查看链接信息</p><p>如果想要正常使用，请在选项页中关闭调试模式</p><p>注意：每次重启浏览器都会导致调试模式被默认打开</p><p>如果显示区域发生重叠，可能是您的浏览器不支持太宽的弹出页面，请尝试把选项页中的width改小一些</p><p><a href="https://yyhhenry.github.io/manketuan" rel="nofollow">手机版测试</a>`
-	},
-	{
 		name:'yyhhenry.github.io',
 		details:`<p><a href='https://yyhhenry.github.io'>我的博客</a></p>`
 	},
@@ -61,9 +57,9 @@ let repositories=[
 <pre><code>
 	两个节点之间只能有一条线路
 
-	导线可以**双向**传播电流，但是会逐渐削弱，串联大约30条导线后电流无法被捕捉
+	导线可以<strong>双向</strong>传播电流，但是会逐渐削弱，串联大约30条导线后电流无法被捕捉
 	
-	非门测定较粗一端的电流，并将结果输送到较细一端，较细一端的状态**不会影响**较粗一端
+	非门测定较粗一端的电流，并将结果输送到较细一端，较细一端的状态<strong>不会影响</strong>较粗一端
 	
 	非门整流后，电流又可以传播30条导线长
 	
