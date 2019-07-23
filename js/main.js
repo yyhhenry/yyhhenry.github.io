@@ -84,6 +84,14 @@ let repositories=[
 <p>使用方法过于简单，不再赘述。</p>
 <p>初步加入“入门级AI”，“普通级AI”、“提高级AI”请等下次</p>
 <p><a href="https://yyhhenry.github.io/gomoku" rel="nofollow">在线试玩</a></p>`
+	},
+	{
+		name:'live',
+		details:`<h1>live</h1>
+<p>这是一个填了gzw的火柴人</p>
+<p>会随鼠标有一定的动作</p>
+<p>本地无法运行</p>
+<p><a href="https://yyhhenry.github.io/live" rel="nofollow">Enjoy yourself!</a></p>`
 	}
 ];
 function getElementLeft(element){
