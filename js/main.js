@@ -89,7 +89,7 @@ let repositories=[
 		name:'live',
 		details:`<h1>live</h1>
 <p>这是live2D的劣化版</p>
-<p>应甲方要求更换了图片，故现在还不会动，没有声音</p>
+<p>应甲方要求更换了图片，故现在还没有声音</p>
 <p>完成版敬请期待</p>
 <p><a href="https://yyhhenry.github.io/live" rel="nofollow">Enjoy yourself!</a></p>`
 	}
