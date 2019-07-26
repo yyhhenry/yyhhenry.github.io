@@ -88,9 +88,9 @@ let repositories=[
 	{
 		name:'live',
 		details:`<h1>live</h1>
-<p>这是一个填了gzw的火柴人</p>
-<p>会随鼠标有一定的动作</p>
-<p>本地无法运行</p>
+<p>这是live2D的劣化版</p>
+<p>应甲方要求更换了图片，故现在还不会动，没有声音</p>
+<p>完成版敬请期待</p>
 <p><a href="https://yyhhenry.github.io/live" rel="nofollow">Enjoy yourself!</a></p>`
 	}
 ];
