@@ -1,6 +1,10 @@
 let mouse;
 let repositories=[
 	{
+		name:'ai',
+		details:`<p>第一次尝试神经网络</p><p><a href='https://yyhhenry.github.io/ai/'>试一试</a></p>`
+	},
+	{
 		name:'yyhhenry.github.io',
 		details:`<p><a href='https://yyhhenry.github.io'>我的博客</a></p>`
 	},
