@@ -38,7 +38,7 @@ let repositories=[
 	},
 	{
 		name:'gomoku',
-		details:`<h1>gomoku</h1>
+		details:`
 <p>一个取材自@wky32768 的项目，当然主要也是因为他@我太多了。</p>
 <p>使用方法过于简单，不再赘述。</p>
 <p>初步加入“入门级AI”，“普通级AI”、“提高级AI”请等下次</p>
@@ -46,10 +46,8 @@ let repositories=[
 	},
 	{
 		name:'live',
-		details:`<h1>live</h1>
-<p>这是live2D的劣化版</p>
-<p>应甲方要求更换了图片，故现在还没有声音</p>
-<p>完成版敬请期待</p>
+		details:`
+		(请通过上方链接查询使用细则)
 <p><a href="https://yyhhenry.github.io/live" rel="nofollow">Enjoy yourself!</a></p>`
 	}
 ];
