@@ -1,115 +1,128 @@
-let mouse;
-let repositories=[
-	{
-		name:'ai',
-		details:`<p>第一次尝试神经网络</p><p><a href='https://yyhhenry.github.io/ai/'>试一试</a></p>`
-	},
-	{
-		name:'yyhhenry.github.io',
-		details:`<p><a href='https://yyhhenry.github.io'>我的博客</a></p>`
-	},
-	{
-		name:'trick',
-		details:`<p>GALGAME开发模板</p><p><a href="https://yyhhenry.github.io/trick/" rel="nofollow">在线尝试</a></p>`
-	},
-	{
-		name:'phyjs',
-		details:`<p>The name of the repository ,'phyjs', means 'Physical' and 'Javascript'.</p><p>As a matter of fact,it is just for test.</p><p>You could have a try under <a href="https://yyhhenry.github.io/phyjs?mini" rel="nofollow">https://yyhhenry.github.io/phyjs?mini</a>.</p><p>The same game with a huge map at <a href="https://yyhhenry.github.io/phyjs?huge" rel="nofollow">https://yyhhenry.github.io/phyjs?huge</a> is also recommended.</p><p>Enjoy yourself in playing.</p>`
-	},
-	{
-		name:'xbiquge6',
-		details:`<p>用于下载xbiquge6.com的小说</p><p><a href="https://yyhhenry.github.io/xbiquge6/main.user.js" rel="nofollow">下载脚本</a></p>`
-	},
-	{
-		name:'Java-3D-Engine',
-		details:`<p>一个手写的不完善的Java3D引擎</p><p>现在只支持添加纯色三角形，没法填位图、光源和材质</p>`
-	},
-	{
-		name:'hitgame',
-		details:`<p>A Game Played Under The LAN</p>`
-	},
-	{
-		name:'Cpx',
-		details:`<p>An Educational Programming Language</p>`
-	},
-	{
-		name:'redstone',
-		details:`<p><a href="https://yyhhenry.github.io/redstone" rel="nofollow" target="_blank">随便玩电路</a></p>`
-	},
-	{
-		name:'gomoku',
-		details:`
-<p>一个取材自@wky32768 的项目，当然主要也是因为他@我太多了。</p>
-<p>使用方法过于简单，不再赘述。</p>
-<p>初步加入“入门级AI”，“普通级AI”、“提高级AI”请等下次</p>
-<p><a href="https://yyhhenry.github.io/gomoku" rel="nofollow">在线试玩</a></p>`
-	},
-	{
-		name:'live',
-		details:`
-		(请通过上方链接查询使用细则)
-<p><a href="https://yyhhenry.github.io/live" rel="nofollow">Enjoy yourself!</a></p>`
+let CanvasButton;
+let choosePage;
+CanvasButton=function(){
+	let thisCanvasButton=this;
+	let canvas;
+	let text;
+	let font;
+	let textColor;
+	let backgroundColor;
+	let x;
+	let y;
+	let width;
+	let height;
+	this.init=function(_canvas,_text,_font,_textColor,_backgroundColor,_x,_y,_width,_height){
+		canvas=_canvas;
+		text=_text;
+		font=_font;
+		textColor=_textColor;
+		backgroundColor=_backgroundColor;
+		x=_x;
+		y=_y;
+		width=_width;
+		height=_height;
+		return this;
 	}
-];
-function getElementLeft(element){
-	let actualLeft = element.offsetLeft;
-	let current = element.offsetParent;
-	while(current!=null){
-		actualLeft += current.offsetLeft;
-		current = current.offsetParent;
+	this.setText=function(newText){
+		text=newText;
 	}
-	return actualLeft;
-}
-function getElementTop(element){
-	let actualLeft = element.offsetTop;
-	let current = element.offsetParent;
-	while(current!=null){
-		actualLeft += current.offsetTop;
-		current = current.offsetParent;
-	}
-	return actualLeft;
-}
-function setRepositories(){
-	const list=document.getElementById('list');
-	const details=document.getElementById('details');
-	$(list).html('');
-	for(let i=0;i<repositories.length;i++){
-		let option=document.createElement('h3');
-		list.appendChild(option);
-		$(option).text(repositories[i].name);
-		$(option).mouseenter(function(){
-			$(option).css('background','rgba(80,0,0,0.6)');
-			$(option).css('color','rgba(255,255,255,0.7)');
-			$(option).css('filter','brightness(1.5)');
-			$(details).html(`<h1><a href='https://github.com/yyhhenry/${repositories[i].name}'>${repositories[i].name}</a></h1><hr>`+repositories[i].details);
+	this.draw=function(mouse){
+		let ctx=canvas.getContext('2d');
+		ctx.fillStyle=backgroundColor;
+		ctx.fillRect(x,y,width,height);
+		thisCanvasButton.hit(mouse,function(){
+			ctx.fillStyle='rgba(128,128,128,0.3)';
+			ctx.fillRect(x,y,width,height);
 		});
-		$(option).mouseleave(function(){
-			repositories[i].mouseentered=false;
-			$(option).css('background','rgba(0,0,0,0)');
-			$(option).css('color','rgba(220,220,220,1)');
-			$(option).css('filter','brightness(1)');
-		});
+		ctx.fillStyle=textColor;
+		ctx.font=font;
+		ctx.textAlign='center';
+		ctx.textBaseline='middle';
+		ctx.fillText(text,x+width/2,y+height/2);
+	}
+	this.hit=function(mouse,f){
+		if(mouse.x>=x&&mouse.x<x+width&&mouse.y>=y&&mouse.y<y+height)f();
 	}
 }
-function onresize(){
-	const proportion=9/16;
-	const proScr=document.getElementById('proScr');
-	const clientHeight=$(window).height();
-	const clientWidth=$(window).width();
-	if(proportion*clientWidth>clientHeight){
-		proScr.style.height=(clientHeight-10)+'px';
-		proScr.style.width=((clientHeight-10)/proportion)+'px';
-		proScr.style.left=(clientWidth-(clientHeight-10)/proportion)/2+'px';
-		proScr.style.top='5px';
-	}else{
-		proScr.style.width=(clientWidth-10)+'px';
-		proScr.style.height=((clientWidth-10)*proportion)+'px';
-		proScr.style.top=(clientHeight-(clientWidth-10)*proportion)/2+'px';
-		proScr.style.left='5px';
+
+choosePage=function(){
+	let thisChoosePage=this;
+	let canvas;
+	let life;
+	let page;
+	let mouse;
+	let tank;
+	let redstone;
+	let ai;
+	let gomoku;
+	let live;
+	let xbiquge6;
+	this.init=function(_page){
+		page=_page;
+		canvas=document.createElement('canvas');
+		canvas.style.position='fixed';
+		canvas.style.left='0px';
+		canvas.style.top='0px';
+		canvas.style.right='0px';
+		canvas.style.bottom='0px';
+		page.append(canvas);
+		life=true;
+		mouse={x:0,y:0};
+		tank=new CanvasButton().init(canvas,'坦克动荡','20px 黑体','rgb(0,0,0)','rgb(240,140,100)',50,50,150,40);
+		redstone=new CanvasButton().init(canvas,'逻辑电路','20px 黑体','rgb(0,0,0)','rgb(240,100,200)',250,50,150,40);
+		ai=new CanvasButton().init(canvas,'神经网络','20px 黑体','rgb(0,0,0)','rgb(200,220,180)',50,120,150,40);
+		gomoku=new CanvasButton().init(canvas,'玩五子棋','20px 黑体','rgb(0,0,0)','rgb(200,200,150)',250,120,150,40);
+		live=new CanvasButton().init(canvas,'live2D','20px 黑体','rgb(0,0,0)','rgb(230,180,230)',50,190,150,40);
+		xbiquge6=new CanvasButton().init(canvas,'小说下载','20px 黑体','rgb(0,0,0)','rgb(160,240,240)',250,190,150,40);
+		canvas.onmousemove=function(event){
+			mouse.x=event.layerX;
+			mouse.y=event.layerY;
+		}
+		canvas.onclick=function(event){
+			tank.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/tank/';
+			});
+			redstone.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/redstone/';
+			});
+			ai.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/ai/';
+			});
+			gomoku.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/gomoku/';
+			});
+			live.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/live/';
+			});
+			xbiquge6.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/xbiquge6/main.user.js';
+			});
+		}
+		thisChoosePage.draw();
+		return this;
+	}
+	this.clear=function(){
+		page.innerHTML='';
+		life=false;
+	}
+	this.draw=function(){
+		if(!life)return;
+		canvas.width=window.outerWidth;
+		canvas.height=window.outerHeight;
+		let ctx=canvas.getContext('2d');
+		ctx.shadowBlur=0;
+		ctx.fillStyle='rgb(200,220,250)';
+		ctx.fillRect(0,0,canvas.width,canvas.height);
+		tank.draw(mouse);
+		redstone.draw(mouse);
+		ai.draw(mouse);
+		gomoku.draw(mouse);
+		live.draw(mouse);
+		xbiquge6.draw(mouse);
+		setTimeout(thisChoosePage.draw,20);
 	}
 }
-$(function(){
-	onresize();
-	setRepositories();
-	$(window).resize(onresize);
-});
+window.onload=function(){
+	let page=document.getElementById('page');
+	new choosePage().init(page);
+}
