@@ -55,7 +55,7 @@ choosePage=function(){
 	let redstone;
 	let ai;
 	let gomoku;
-	let live;
+	let warma;
 	let xbiquge6;
 	this.init=function(_page){
 		page=_page;
@@ -72,7 +72,7 @@ choosePage=function(){
 		redstone=new CanvasButton().init(canvas,'逻辑电路','20px 黑体','rgb(0,0,0)','rgb(240,100,200)',250,50,150,40);
 		ai=new CanvasButton().init(canvas,'神经网络','20px 黑体','rgb(0,0,0)','rgb(200,220,180)',50,120,150,40);
 		gomoku=new CanvasButton().init(canvas,'玩五子棋','20px 黑体','rgb(0,0,0)','rgb(200,200,150)',250,120,150,40);
-		live=new CanvasButton().init(canvas,'live2D','20px 黑体','rgb(0,0,0)','rgb(230,180,230)',50,190,150,40);
+		warma=new CanvasButton().init(canvas,'Warmaの探索','20px 黑体','rgb(0,0,0)','rgb(230,180,230)',50,190,150,40);
 		xbiquge6=new CanvasButton().init(canvas,'小说下载','20px 黑体','rgb(0,0,0)','rgb(160,240,240)',250,190,150,40);
 		canvas.onmousemove=function(event){
 			mouse.x=event.layerX;
@@ -91,8 +91,8 @@ choosePage=function(){
 			gomoku.hit(mouse,function(){
 				location.href='https://yyhhenry.github.io/gomoku/';
 			});
-			live.hit(mouse,function(){
-				location.href='https://yyhhenry.github.io/live/';
+			warma.hit(mouse,function(){
+				location.href='https://yyhhenry.github.io/WarmaGame/';
 			});
 			xbiquge6.hit(mouse,function(){
 				location.href='https://yyhhenry.github.io/xbiquge6/main.user.js';
@@ -117,7 +117,7 @@ choosePage=function(){
 		redstone.draw(mouse);
 		ai.draw(mouse);
 		gomoku.draw(mouse);
-		live.draw(mouse);
+		warma.draw(mouse);
 		xbiquge6.draw(mouse);
 		setTimeout(thisChoosePage.draw,20);
 	}
