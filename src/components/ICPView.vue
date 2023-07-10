@@ -3,7 +3,7 @@ import { ElLink } from 'element-plus';
 import CenterLayout from './CenterLayout.vue';
 </script>
 <template>
-  <div :style="{ color: 'var(--el-text-color)', marginTop: '40px' }">
+  <div :style="{ color: 'var(--el-text-color)', marginTop: '40px', marginBottom: '10px' }">
     <CenterLayout> 网站名称: 奕荷个人技术分享 </CenterLayout>
     <CenterLayout>
       <ElLink href="https://beian.miit.gov.cn/" type="success" target="_blank">
