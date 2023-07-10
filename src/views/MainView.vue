@@ -38,6 +38,7 @@ const handleSelect = (index: string, indexPath: string[]) => {
         <ElSubMenu index="projects">
           <template #title> 项目 </template>
           <ElMenuItem index="seq-logic"> Seq Logic </ElMenuItem>
+          <ElMenuItem index="nrm-use"> nrm-use </ElMenuItem>
         </ElSubMenu>
         <ElSubMenu index="links">
           <template #title> 相关链接 </template>
