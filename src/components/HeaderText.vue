@@ -3,6 +3,7 @@ import { ElLink } from 'element-plus';
 defineProps<{
   fontSize?: string;
   enableSelect?: boolean;
+  href?: string;
 }>();
 </script>
 <template>
@@ -13,6 +14,8 @@ defineProps<{
       fontSize: fontSize ?? '1.5rem',
       userSelect: enableSelect ? 'text' : 'none',
     }"
+    :href="href"
+    :title="href"
   >
     <slot></slot>
   </ElLink>

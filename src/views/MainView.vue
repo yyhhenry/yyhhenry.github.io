@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import FlexCard from '@/components/FlexCard.vue';
 import HeaderText from '@/components/HeaderText.vue';
 import ICPView from '@/components/ICPView.vue';
 import LRMenu from '@/components/LRMenu.vue';
 import PageLayout from '@/components/PageLayout.vue';
 import SwitchDark from '@/components/SwitchDark.vue';
 import websiteName from '@/utils/website-name';
+import ProjectsView from './main-view/ProjectsView.vue';
+import LinksView from './main-view/LinksView.vue';
+import CharactersView from './main-view/CharactersView.vue';
 import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
+import { ref } from 'vue';
+const tabs = ['characters', 'projects', 'links'] as const;
+type Tab = (typeof tabs)[number];
+const isTab = (tab: string): tab is Tab => (tabs as readonly string[]).includes(tab);
+const tab = ref<Tab>('projects');
+const page = ref('seq-logic');
+const handleSelect = (index: string, indexPath: string[]) => {
+  const selectedTab = indexPath[0];
+  if (!isTab(selectedTab)) return;
+  tab.value = selectedTab;
+  page.value = index;
+};
 </script>
 
 <template>
@@ -20,7 +34,7 @@ import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
       </LRMenu>
     </template>
     <template #aside>
-      <ElMenu :default-openeds="['characters', 'projects', 'links']" :default-active="'seq-logic'">
+      <ElMenu :default-openeds="tabs.slice()" :default-active="'seq-logic'" @select="handleSelect">
         <ElSubMenu index="projects">
           <template #title> 项目 </template>
           <ElMenuItem index="seq-logic"> Seq Logic </ElMenuItem>
@@ -37,7 +51,9 @@ import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
         </ElSubMenu>
       </ElMenu>
     </template>
-    <FlexCard> </FlexCard>
+    <ProjectsView :page="page" v-if="tab == 'projects'"></ProjectsView>
+    <LinksView :page="page" v-else-if="tab == 'links'"></LinksView>
+    <CharactersView :page="page" v-else-if="tab == 'characters'"></CharactersView>
     <ICPView></ICPView>
   </PageLayout>
 </template>
