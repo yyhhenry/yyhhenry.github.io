@@ -2,10 +2,17 @@
 import CenterLayout from '@/components/CenterLayout.vue';
 import FlexCard from '@/components/FlexCard.vue';
 import HeaderText from '@/components/HeaderText.vue';
-import { ElAvatar, ElImage, ElRow, ElText } from 'element-plus';
+import SmartPlayer from '@/components/SmartPlayer.vue';
+import { ElAvatar, ElImage, ElRow, ElTabPane, ElTabs, ElText } from 'element-plus';
+import { ref } from 'vue';
 defineProps<{
   page: string;
 }>();
+const bilibiliVideos = [
+  'https://www.bilibili.com/video/BV1SV4y1h7wu/',
+  'https://www.bilibili.com/video/BV1fS4y1D7ub/',
+];
+const selectedBilibiliVideo = ref('0');
 </script>
 <template>
   <FlexCard v-if="page == 'bilibili'">
@@ -23,12 +30,12 @@ defineProps<{
     <ElText tag="p" size="large">
       近期视频有关ACE Studio虚拟歌姬、RVC AI换声、SD WebUI曲绘制作的原创歌曲《早安晚安》。
     </ElText>
-    <CenterLayout>
-      <HeaderText href="https://www.bilibili.com/video/BV1SV4y1h7wu/">
-        <ElImage src="./images/bilibili/早安晚安.png"></ElImage>
-      </HeaderText>
-    </CenterLayout>
     <ElText tag="p" size="large"> 近期较高播放视频为虚拟主播相关。 </ElText>
+    <ElTabs v-model="selectedBilibiliVideo">
+      <ElTabPane label="早安晚安" name="0"> </ElTabPane>
+      <ElTabPane label="创意工坊" name="1"> </ElTabPane>
+    </ElTabs>
+    <SmartPlayer :share="bilibiliVideos[+selectedBilibiliVideo]"> </SmartPlayer>
   </FlexCard>
   <FlexCard v-else-if="page == 'zhihu'">
     <template #header>
