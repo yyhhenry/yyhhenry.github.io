@@ -34,7 +34,7 @@ const handleSelect = (index: string, indexPath: string[]) => {
       </LRMenu>
     </template>
     <template #aside>
-      <ElMenu :default-openeds="tabs.slice()" :default-active="'seq-logic'" @select="handleSelect">
+      <ElMenu :default-openeds="tabs.slice()" :default-active="page" @select="handleSelect">
         <ElSubMenu index="projects">
           <template #title> 项目 </template>
           <ElMenuItem index="seq-logic"> Seq Logic </ElMenuItem>
