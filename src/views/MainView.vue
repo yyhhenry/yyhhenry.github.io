@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import HeaderText from '@/components/HeaderText.vue';
-import ICPView from '@/components/ICPView.vue';
 import LRMenu from '@/components/LRMenu.vue';
 import PageLayout from '@/components/PageLayout.vue';
 import SwitchDark from '@/components/SwitchDark.vue';
@@ -8,8 +7,9 @@ import websiteName from '@/utils/website-name';
 import ProjectsView from './main-view/ProjectsView.vue';
 import LinksView from './main-view/LinksView.vue';
 import CharactersView from './main-view/CharactersView.vue';
-import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
+import { ElDivider, ElMenu, ElMenuItem, ElRow, ElSubMenu } from 'element-plus';
 import { ref } from 'vue';
+import CenterLayout from '@/components/CenterLayout.vue';
 const tabs = ['characters', 'projects', 'links'] as const;
 type Tab = (typeof tabs)[number];
 const isTab = (tab: string): tab is Tab => (tabs as readonly string[]).includes(tab);
@@ -52,9 +52,13 @@ const handleSelect = (index: string, indexPath: string[]) => {
         </ElSubMenu>
       </ElMenu>
     </template>
-    <ProjectsView :page="page" v-if="tab == 'projects'"></ProjectsView>
-    <LinksView :page="page" v-else-if="tab == 'links'"></LinksView>
-    <CharactersView :page="page" v-else-if="tab == 'characters'"></CharactersView>
-    <ICPView></ICPView>
+    <span>
+      <ProjectsView :page="page" v-if="tab == 'projects'"></ProjectsView>
+      <LinksView :page="page" v-else-if="tab == 'links'"></LinksView>
+      <CharactersView :page="page" v-else-if="tab == 'characters'"></CharactersView>
+      <CenterLayout :style="{ margin: '100px 40px' }">
+        <ElDivider>END</ElDivider>
+      </CenterLayout>
+    </span>
   </PageLayout>
 </template>
