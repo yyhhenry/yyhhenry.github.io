@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ElContainer, ElAside, ElHeader } from 'element-plus';
 import PlainMain from './page-layout/PlainMain.vue';
-import { useAnimate, useWindowSize } from '@vueuse/core';
+import { useWindowSize } from '@vueuse/core';
 import { computed, ref, watchEffect } from 'vue';
 const slots = defineSlots<{
   default: (_: {}) => unknown;
@@ -10,47 +10,20 @@ const slots = defineSlots<{
 }>();
 const { width } = useWindowSize();
 const isMobile = computed(() => width.value < 700);
-const asideWidth = 250;
-const asideElement = ref<HTMLElement>();
-const showStyle = {
-  transform: 'translateX(0)',
-  opacity: 1,
-};
-const hideStyle = {
-  transform: `translateX(-${asideWidth}px)`,
-  opacity: 0,
-};
-const asideAnime = useAnimate(asideElement, [showStyle, hideStyle], {
-  duration: 400,
-  easing: 'ease-out',
-  immediate: false,
-});
-const asideHided = ref(false);
-const hideAside = () => {
-  asideAnime.cancel();
-  asideAnime.playbackRate.value = 1;
-  asideAnime.play();
-  asideHided.value = true;
-};
-const showAside = () => {
-  asideAnime.cancel();
-  asideAnime.playbackRate.value = -1;
-  asideAnime.play();
-  asideHided.value = false;
-};
+const showAside = ref(true);
 watchEffect(() => {
-  if (!isMobile.value && asideHided.value) {
-    showAside();
+  if (!isMobile.value) {
+    showAside.value = true;
   }
 });
 const onTouchMain = () => {
-  if (isMobile.value && !asideHided.value) {
-    hideAside();
+  if (isMobile.value) {
+    showAside.value = false;
   }
 };
 const onTouchHeader = () => {
-  if (isMobile.value && asideHided.value) {
-    showAside();
+  if (isMobile.value) {
+    showAside.value = true;
   }
 };
 </script>
@@ -61,20 +34,17 @@ const onTouchHeader = () => {
     </ElHeader>
     <PlainMain>
       <ElContainer class="full-height">
-        <ElAside
-          :style="asideHided ? hideStyle : showStyle"
-          ref="asideElement"
-          :width="`${asideWidth}px`"
-          class="aside"
-          v-if="slots.aside"
-        >
-          <slot name="aside"></slot>
-        </ElAside>
-        <PlainMain
-          @click="onTouchMain()"
-          @touch="onTouchMain()"
-          :style="{ marginLeft: isMobile ? `-${asideWidth}px` : undefined }"
-        >
+        <Transition name="slide-fade">
+          <ElAside
+            :width="'250px'"
+            class="aside"
+            v-if="slots.aside && showAside"
+            :style="{ marginRight: isMobile ? `-250px` : undefined }"
+          >
+            <slot name="aside"></slot>
+          </ElAside>
+        </Transition>
+        <PlainMain @click="onTouchMain()" @touch="onTouchMain()">
           <slot></slot>
         </PlainMain>
       </ElContainer>
@@ -95,5 +65,16 @@ const onTouchHeader = () => {
   z-index: 20;
   background-color: var(--el-bg-color-page);
   border-right: 1px solid var(--el-border-color);
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(-250px);
+  opacity: 0;
 }
 </style>
